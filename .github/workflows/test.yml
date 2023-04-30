@@ -13,12 +13,10 @@ jobs:
     steps:
       - name: Create annotation for build error
         id: curl_1
-        outputs:
-          time:
         run: |
           curl -L -s -w "Test connection:: %{time_total}\n" -o /dev/null http://www.google.com/
       - run: |
-          echo ${{ join(steps.curl_1.outputs.*, '\n') }}
+          echo ${{ steps.curl_1.outputs.result }}
 #      - uses: actions/github-script@v6
 #        with:
 #          github-token: ${{secrets.GITHUB_TOKEN}}
