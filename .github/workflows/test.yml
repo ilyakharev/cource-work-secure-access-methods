@@ -9,14 +9,6 @@ jobs:
           docker build -t test ./node/ && docker run test
   comment:
     permissions: write-all
-    services:
-      node:
-        image: ${{ github.event.pull_request.title }}
-        volumes:
-          - ./${{ github.event.pull_request.title }}
-        ports:
-          - 3000:3000
-        run: "npm start"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
