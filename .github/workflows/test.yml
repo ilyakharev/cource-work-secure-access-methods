@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v3
         name: Checkout
       - run: |
-          docker build -t test ./node/ && docker run -d -p 3000:3000 test
+          docker build -t test ./${{ github.event.pull_request.title }}/ && docker run -d -p 3000:3000 test
       - uses: GuillaumeFalourd/wait-sleep-action@v1
         with:
           time: '20' # for 60 seconds
