@@ -5,17 +5,15 @@ jobs:
   comment:
     permissions: write-all
     services:
-      ydb:
-        image: ./${{ github.event.pull_request.title }}/Dockerfile
-        ports:
-          - 2135:2135
-          - 2136:2136
-          - 8765:8765
+      node:
+        image: ${{ github.event.pull_request.title }}
+        environment:
+          - NODE_ENV=production
         volumes:
-          - /tmp/ydb_certs:/ydb_certs
-        env:
-          YDB_USE_IN_MEMORY_PDISKS: true
-        options: '-h localhost'
+          - ./${{ github.event.pull_request.title }}
+        expose:
+          - "3000"
+        command: "npm start"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
