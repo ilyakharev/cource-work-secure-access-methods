@@ -19,7 +19,7 @@ jobs:
           docker build -t test ./node/ && docker run -d -p 3000:3000 test
       - uses: GuillaumeFalourd/wait-sleep-action@v1
         with:
-          time: '40' # for 60 seconds
+          time: '20' # for 60 seconds
       - id: curl_1
         run: |
           static_response=$(curl -L -s -w "Подключение к статистическому запросу %{time_total}c\n" -o /dev/null http://localhost:3000/)
@@ -38,5 +38,5 @@ jobs:
               repo: context.repo.repo,
               body: "${{ github.event.pull_request.title }}\n"
                 + "${{ steps.curl_1.outputs.static_response }}\n"
-                + "$( docker stats --no-stream )\n"
+                + $( docker stats --no-stream ) + "\n"
             })
