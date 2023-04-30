@@ -12,7 +12,8 @@ jobs:
     steps:
       - name: Create annotation for build error
         id: curl_1
-        run: curl -L -s -w "Test connection:: %{time_total}\n" -o /dev/null http://www.google.com/
+        run: |
+          curl -L -s -w "Test connection:: %{time_total}\n" -o /dev/null http://www.google.com/
       - uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
