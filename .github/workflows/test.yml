@@ -1,7 +1,6 @@
 on:
   # Trigger the workflow on push or pull request ${{ github.event.pull_request.title }}
   pull_request:
-  push:
 
 jobs:
   comment:
@@ -24,7 +23,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.rest.issues.createComment({
-              issue_number: 1,
+              issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: "${{ github.event.pull_request.title }}\n${{ steps.curl_1.outputs.response_output }}"
