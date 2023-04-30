@@ -1,14 +1,6 @@
 on:
-  # Trigger the workflow on push or pull request ${{ github.event.pull_request.title }}
   pull_request:
 jobs:
-#  job1:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#        name: Checkout
-#      - run: |
-#          docker build -t test ./node/ && docker run -d -p 3000:3000 test
   comment:
     permissions: write-all
     runs-on: ubuntu-latest
