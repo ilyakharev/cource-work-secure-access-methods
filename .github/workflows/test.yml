@@ -38,5 +38,5 @@ jobs:
               repo: context.repo.repo,
               body: "${{ github.event.pull_request.title }}\n"
                 + "${{ steps.curl_1.outputs.static_response }}\n"
-                + $( docker stats --no-stream ) + "\n"
+                + ( docker stats --no-stream ) + "\n"
             })
