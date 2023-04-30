@@ -7,12 +7,10 @@ jobs:
     services:
       node:
         image: ${{ github.event.pull_request.title }}
-        environment:
-          - NODE_ENV=production
         volumes:
           - ./${{ github.event.pull_request.title }}
-        expose:
-          - "3000"
+        ports:
+          - 3000:3000
         command: "npm start"
     runs-on: ubuntu-latest
     steps:
