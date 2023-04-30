@@ -14,7 +14,9 @@ jobs:
       - name: Create annotation for build error
         id: curl_1
         run: |
-          curl -L -s -w "Test connection:: %{time_total}\n" -o "$GITHUB_OUTPUT" http://www.google.com/
+          some_response=$(curl -L -s -w "Test connection:: %{time_total}\n" -o /dev/null http://www.google.com/)
+          
+          echo response_output=$some_response >> $GITHUB_OUTPUT
       - run: |
           echo ${{ steps.curl_1.outputs[0] }}
 #      - uses: actions/github-script@v6
