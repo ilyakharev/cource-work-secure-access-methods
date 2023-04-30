@@ -26,7 +26,7 @@ jobs:
           echo static_response=$static_response >> $GITHUB_OUTPUT
       - id: stats
         run: |
-          stats=$(docker stats)
+          stats=$(docker stats --no-stream)
           echo stats=$stats >> $GITHUB_OUTPUT
       - uses: actions/github-script@v6
         with:
