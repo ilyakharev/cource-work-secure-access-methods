@@ -15,7 +15,7 @@ jobs:
         id: curl_1
         run: |
           curl -L -s -w "Test connection:: %{time_total}\n" -o /dev/null http://www.google.com/
-      - uses: actions/github-script@v5
+      - uses: actions/github-script@v6
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
