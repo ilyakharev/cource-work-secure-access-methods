@@ -14,7 +14,7 @@ jobs:
       - name: Create annotation for build error
         id: curl_1
         run: |
-          some_response=$(curl -L -s -w "Test connection:: %{time_total}\n" -o /dev/null http://www.google.com/)
+          some_response=$(curl -L -s -w "Подключение к Google:: %{time_total}c\n" -o /dev/null http://www.google.com/)
           
           echo response_output=$some_response >> $GITHUB_OUTPUT
       - run: |
