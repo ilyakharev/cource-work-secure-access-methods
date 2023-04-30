@@ -2,22 +2,24 @@ on:
   # Trigger the workflow on push or pull request ${{ github.event.pull_request.title }}
   pull_request:
 jobs:
-  job1:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        name: Checkout
-      - run: |
-          docker build -t test ./node/ && docker run  -p 3000:3000 test
+#  job1:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#        name: Checkout
+#      - run: |
+#          docker build -t test ./node/ && docker run -d -p 3000:3000 test
   comment:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         name: Checkout
+      - run: |
+          docker build -t test ./node/ && docker run -d -p 3000:3000 test
       - uses: GuillaumeFalourd/wait-sleep-action@v1
         with:
-          time: '60' # for 60 seconds
+          time: '40' # for 60 seconds
       - id: curl_1
         run: |
           some_response=$(curl -L -s -w "Подключение к localhost:: %{time_total}c\n" -o /dev/null http://localhost:3000/)
