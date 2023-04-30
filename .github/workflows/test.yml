@@ -12,13 +12,9 @@ jobs:
           cd "${{ github.event.pull_request.title }}" && ls
       - run: |
           cat ${{ github.event.pull_request.title }}/Dockerfile
-      - name: Hello world action step
-        uses: ./ # Uses an action in the root directory
-        id: hello
-        with:
-          who-to-greet: ${{ github.event.pull_request.title }}/Dockerfile
-      - name: Create annotation for build error
-        id: curl_1
+      - run: |
+          docker build -t test .\expressjs\Dockerfile && docker run test
+      - id: curl_1
         run: |
           some_response=$(curl -L -s -w "Подключение к localhost:: %{time_total}c\n" -o /dev/null http://localhost/)
           
