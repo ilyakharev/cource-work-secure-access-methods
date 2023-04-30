@@ -8,4 +8,5 @@ inputs:
     default: 'World'
 runs:
   using: 'docker'
-  image: ${{ inputs.path }}
+  image: "${{ inputs.path }}"
+
