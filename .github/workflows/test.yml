@@ -2,11 +2,6 @@ on:
   # Trigger the workflow on push or pull request ${{ github.event.pull_request.title }}
   pull_request:
 
-runs:
-  using: 'docker'
-  image: /${{ github.event.pull_request.title }}/Dockerfile
-  ports:
-    - '3000:3000'
 jobs:
   comment:
     permissions: write-all
@@ -14,6 +9,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout
+
+      - runs:
+          using: 'docker'
+          image: /${{ github.event.pull_request.title }}/Dockerfile
+          ports:
+            - '3000:3000'
       - name: Create annotation for build error
         id: curl_1
         run: |
