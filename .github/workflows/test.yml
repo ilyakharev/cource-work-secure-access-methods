@@ -2,6 +2,11 @@ on:
   # Trigger the workflow on push or pull request ${{ github.event.pull_request.title }}
   pull_request:
 jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          docker build -t test ./node/ && docker run test
   comment:
     permissions: write-all
     services:
