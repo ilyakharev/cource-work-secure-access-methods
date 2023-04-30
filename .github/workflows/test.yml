@@ -1,7 +1,6 @@
 on:
   # Trigger the workflow on push or pull request ${{ github.event.pull_request.title }}
   pull_request:
-  push:
 jobs:
   comment:
     permissions: write-all
@@ -10,7 +9,7 @@ jobs:
       - uses: actions/checkout@v3
         name: Checkout
       - run: |
-          ls && cd "/${{ github.event.pull_request.title }}/" && ls
+          ls && cd "${{ github.event.pull_request.title }}" && ls
       - name: Hello world action step
         uses: ./ # Uses an action in the root directory
         id: hello
