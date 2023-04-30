@@ -11,4 +11,4 @@ outputs:
     description: 'The time we greeted you'
 runs:
   using: 'docker'
-  image: ${{ inputs.who-to-greet }}'Dockerfile'
+  image: ${{ inputs.who-to-greet }}
