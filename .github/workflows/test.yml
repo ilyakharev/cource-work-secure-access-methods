@@ -24,8 +24,10 @@ jobs:
         run: |
           static_response=$(curl -L -s -w "Подключение к статистическому запросу %{time_total}c\n" -o /dev/null http://localhost:3000/)
           echo static_response=$static_response >> $GITHUB_OUTPUT
-      - run: |
-          echo ${{ steps.curl_1.outputs.response_output }}
+      - id: stats
+        run: |
+          stats=${docker stats --no-stream}
+          echo stats=$stats >> $GITHUB_OUTPUT
       - uses: actions/github-script@v6
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -35,5 +37,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: "${{ github.event.pull_request.title }}\n"
-                + "${{ steps.curl_1.outputs.static_response }}"
+                + "${{ steps.curl_1.outputs.static_response }}\n"
             })
