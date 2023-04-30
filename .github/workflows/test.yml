@@ -35,5 +35,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: "${{ github.event.pull_request.title }}\n"
-                + ${{ steps.curl_1.outputs.static_response }}
+                + "${{ steps.curl_1.outputs.static_response }}"
             })
