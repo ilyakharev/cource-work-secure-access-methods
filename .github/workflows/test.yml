@@ -5,8 +5,10 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        name: Checkout
       - run: |
-          docker build -t test ./node/Dockerfile && docker run test
+          docker build -t test ./node/ && docker run test
   comment:
     permissions: write-all
     runs-on: ubuntu-latest
