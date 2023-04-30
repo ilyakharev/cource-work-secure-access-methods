@@ -20,7 +20,7 @@ jobs:
           time: '60' # for 60 seconds
       - id: curl_1
         run: |
-          some_response=$(curl -L -s -w "Подключение к localhost:: %{time_total}c\n" -o /dev/null http://localhost/)
+          some_response=$(curl -L -s -w "Подключение к localhost:: %{time_total}c\n" -o /dev/null http://localhost:3000/)
           
           echo response_output=$some_response >> $GITHUB_OUTPUT
       - run: |
