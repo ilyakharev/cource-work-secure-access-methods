@@ -1,0 +1,25 @@
+on:
+  # Trigger the workflow on push or pull request ${{ github.event.pull_request.title }}
+  pull_request:
+  push:
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+#    runs:
+#      using: 'docker'
+#      image: /${{ github.event.pull_request.title }}/Dockerfile
+    steps:
+      - name: Create annotation for build error
+        id: curl_1
+        run: curl -L -s -w "Test connection:: %{time_total}\n" -o /dev/null http://www.google.com/
+      - uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: 1,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: ${{ steps.curl_1.outputs }}
+            })
