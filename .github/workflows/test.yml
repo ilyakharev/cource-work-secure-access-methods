@@ -5,6 +5,7 @@ on:
 
 jobs:
   comment:
+    permissions: write-all
     runs-on: ubuntu-latest
 #    runs:
 #      using: 'docker'
