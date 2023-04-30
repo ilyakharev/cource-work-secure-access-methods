@@ -23,5 +23,5 @@ jobs:
               issue_number: 1,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "${{ steps.curl_1.outputs }}"
+              body: "${{ steps.curl_1.outputs[0] }}"
             })
