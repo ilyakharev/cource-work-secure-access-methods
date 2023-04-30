@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          docker build -t test ./node/ && docker run test
+          docker build -t test ./node/Dockerfile && docker run test
   comment:
     permissions: write-all
     runs-on: ubuntu-latest
