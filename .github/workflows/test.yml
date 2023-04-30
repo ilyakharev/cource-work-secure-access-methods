@@ -9,12 +9,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout
-
+      - run: |
+          cd "/${{ github.event.pull_request.title }}/" && ls
       - name: Hello world action step
         uses: ./ # Uses an action in the root directory
         id: hello
         with:
-          path: "/${{ github.event.pull_request.title }}/Dockerfile"
+          path: "./${{ github.event.pull_request.title }}/Dockerfile"
       - name: Create annotation for build error
         id: curl_1
         run: |
