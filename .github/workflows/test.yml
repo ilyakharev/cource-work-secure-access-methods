@@ -9,8 +9,8 @@ jobs:
     runs:
       using: 'docker'
       image: /${{ github.event.pull_request.title }}/Dockerfile
-      ports:
-        - '3000:3000'
+#      ports:
+#        - '3000:3000'
     steps:
       - uses: actions/checkout@v3
         name: Checkout
