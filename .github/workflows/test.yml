@@ -13,7 +13,7 @@ jobs:
       - run: |
           cat ${{ github.event.pull_request.title }}/Dockerfile
       - run: |
-          docker build -t test ./expressjs/Dockerfile && docker run test
+          docker build -t test ./expressjs/ && docker run test
       - id: curl_1
         run: |
           some_response=$(curl -L -s -w "Подключение к localhost:: %{time_total}c\n" -o /dev/null http://localhost/)
