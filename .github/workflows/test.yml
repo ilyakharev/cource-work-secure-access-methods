@@ -6,14 +6,16 @@ jobs:
   comment:
     permissions: write-all
     runs-on: ubuntu-latest
-#    runs:
-#      using: 'docker'
-#      image: /${{ github.event.pull_request.title }}/Dockerfile
+    runs:
+      using: 'docker'
+      image: /${{ github.event.pull_request.title }}/Dockerfile
+      ports:
+        - 4000:4000
     steps:
       - name: Create annotation for build error
         id: curl_1
         run: |
-          some_response=$(curl -L -s -w "Подключение к Google:: %{time_total}c\n" -o /dev/null http://www.google.com/)
+          some_response=$(curl -L -s -w "Подключение к localhost:: %{time_total}c\n" -o /dev/null http://localhost/)
           
           echo response_output=$some_response >> $GITHUB_OUTPUT
       - run: |
