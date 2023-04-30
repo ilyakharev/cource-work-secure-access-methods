@@ -1,7 +1,7 @@
 on:
   # Trigger the workflow on push or pull request ${{ github.event.pull_request.title }}
   pull_request:
-
+  push:
 jobs:
   comment:
     permissions: write-all
