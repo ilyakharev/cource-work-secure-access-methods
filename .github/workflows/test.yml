@@ -2,15 +2,15 @@ on:
   # Trigger the workflow on push or pull request ${{ github.event.pull_request.title }}
   pull_request:
 
+runs:
+  using: 'docker'
+  image: /${{ github.event.pull_request.title }}/Dockerfile
+  ports:
+    - '3000:3000'
 jobs:
   comment:
     permissions: write-all
     runs-on: ubuntu-latest
-    runs:
-      using: 'docker'
-      image: /${{ github.event.pull_request.title }}/Dockerfile
-#      ports:
-#        - '3000:3000'
     steps:
       - uses: actions/checkout@v3
         name: Checkout
