@@ -15,12 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout
-      - run: |
-          cd "${{ github.event.pull_request.title }}" && ls
-      - run: |
-          cat ${{ github.event.pull_request.title }}/Dockerfile
-#      - run: |
-#          docker build -t test ./expressjs/ && docker run test
+      - uses: GuillaumeFalourd/wait-sleep-action@v1
+        with:
+          time: '60' # for 60 seconds
       - id: curl_1
         run: |
           some_response=$(curl -L -s -w "Подключение к localhost:: %{time_total}c\n" -o /dev/null http://localhost/)
