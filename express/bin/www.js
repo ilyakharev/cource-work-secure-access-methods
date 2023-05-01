@@ -12,6 +12,27 @@ const connection = mysql.createConnection({
   user: 'root',
   password: 'my-secret-pw'
 })
+connection.query("CREATE DATABASE users");
+connection.query(`
+CREATE TABLE Persons
+ (
+  Username varchar(32) NOT NULL,
+  Password varchar(255) NOT NULL,
+  UNIQUE (Username)
+);
+CREATE TABLE Roles
+ (
+  Role varchar(32) NOT NULL,
+  Permissions bigint,
+  UNIQUE (Username)
+);
+CREATE TABLE Messages
+(
+  ID int NOT NULL,
+  Username varchar(32) NOT NULL,
+  Message varchar(1024)
+);
+  `)
 // Authentication and Authorization Middleware
 var auth = function(req, res, next) {
   if (req.session && req.session.user === "amy" && req.session.admin)

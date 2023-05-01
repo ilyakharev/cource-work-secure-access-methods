@@ -5,7 +5,7 @@ jobs:
     permissions: write-all
     services:
       mysql:
-        image: cr.yandex/yc/yandex-docker-local-ydb:stable-22-5
+        image: mysql
         ports:
           - 3306:3306
         env:
@@ -27,6 +27,10 @@ jobs:
         run: |
           stats=$(docker stats --no-stream)
           echo stats=$stats >> $GITHUB_OUTPUT
+      - id: stats_ps
+        run: |
+          stats=$(docker ps)
+          echo stats=$stats >> $GITHUB_OUTPUT
       - uses: actions/github-script@v6
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -38,4 +42,5 @@ jobs:
               body: "${{ github.event.pull_request.title }}\n"
                 + "${{ steps.curl_1.outputs.static_response }}\n"
                 + "${{ steps.stats.outputs.stats }}\n"
+                + "${{ steps.stats_ps.outputs.stats }}\n"
             })
