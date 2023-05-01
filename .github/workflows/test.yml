@@ -2,6 +2,7 @@ on:
   pull_request:
 jobs:
   comment:
+    permissions: write-all
     services:
       mysql:
         image: cr.yandex/yc/yandex-docker-local-ydb:stable-22-5
@@ -9,7 +10,6 @@ jobs:
           - 3306:3306
         env:
           MYSQL_ROOT_PASSWORD: my-secret-pw
-      permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
