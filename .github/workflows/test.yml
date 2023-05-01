@@ -1,6 +1,13 @@
 on:
   pull_request:
 jobs:
+  services:
+    mysql:
+      image: cr.yandex/yc/yandex-docker-local-ydb:stable-22-5
+      ports:
+        - 3306:3306
+      env:
+        MYSQL_ROOT_PASSWORD: my-secret-pw
   comment:
     permissions: write-all
     runs-on: ubuntu-latest
