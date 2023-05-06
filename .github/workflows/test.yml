@@ -1,31 +1,46 @@
 on:
-  # Trigger the workflow on push or pull request ${{ github.event.pull_request.title }}
   pull_request:
-  push:
-
 jobs:
   comment:
     permissions: write-all
+    services:
+      mysql:
+        image: mysql
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: my-secret-pw
     runs-on: ubuntu-latest
-#    runs:
-#      using: 'docker'
-#      image: /${{ github.event.pull_request.title }}/Dockerfile
     steps:
-      - name: Create annotation for build error
-        id: curl_1
-        run: |
-          some_response=$(curl -L -s -w "Подключение к Google:: %{time_total}c\n" -o /dev/null http://www.google.com/)
-          
-          echo response_output=$some_response >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v3
+        name: Checkout
       - run: |
-          echo ${{ steps.curl_1.outputs.response_output }}
+          docker build -t test ./${{ github.event.pull_request.title }}/ && docker run -d -p 3000:3000 test
+      - uses: GuillaumeFalourd/wait-sleep-action@v1
+        with:
+          time: '20' # for 60 seconds
+      - id: curl_1
+        run: |
+          static_response=$(curl -L -s -w "Подключение к статистическому запросу %{time_total}c\n" -o /dev/null http://localhost:3000/)
+          echo static_response=$static_response >> $GITHUB_OUTPUT
+      - id: stats
+        run: |
+          stats=$(docker stats --no-stream)
+          echo stats=$stats >> $GITHUB_OUTPUT
+      - id: stats_ps
+        run: |
+          stats=$(docker ps)
+          echo stats=$stats >> $GITHUB_OUTPUT
       - uses: actions/github-script@v6
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.rest.issues.createComment({
-              issue_number: 1,
+              issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "${{ steps.curl_1.outputs.response_output }}"
+              body: "${{ github.event.pull_request.title }}\n"
+                + "${{ steps.curl_1.outputs.static_response }}\n"
+                + "${{ steps.stats.outputs.stats }}\n"
+                + "${{ steps.stats_ps.outputs.stats }}\n"
             })
